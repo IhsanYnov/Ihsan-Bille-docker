@@ -53,3 +53,27 @@ quelques enregistrements dans la base de données à l’aide de phpmyadmin
    > docker start phpmyadmin_containe
    > ajout table dans container - methode graphique depuis l'interface
    > docker exec -it id_mysql -u root -p
+   
+8. Faire la même chose que précédemment en utilisant un fichier docker-compose.yml
+
+a. Qu’apporte le fichier docker-compose par rapport aux commandes docker run ? Pourquoi est-il intéressant ? (cf. ce qui a été présenté pendant le cours)
+Le fichier docker-compose.yml permet de définir une configuration pour plusieurs conteneurs Docker. Cela permet de définir comment les conteneurs doivent interagir et de les démarrer ensemble en une seule commande, au lieu d'avoir à exécuter plusieurs commandes docker run séparément. Cela peut être particulièrement utile lorsque vous avez un projet qui implique plusieurs conteneurs qui doivent être lancés et configurés de manière coordonnée.
+
+Voici quelques avantages à utiliser docker-compose :
+
+Simplicité : définir tous les paramètres de vos conteneurs dans un seul fichier, ce qui peut être plus facile à gérer et à comprendre que de devoir exécuter de nombreuses commandes docker run individuelles.
+
+Reproductibilité : le fichier docker-compose.yml peut être versionné et partagé avec d'autres, ce qui permet de garantir que tout le monde utilise la même configuration de conteneurs.
+
+Efficacité : avec docker-compose, vous pouvez facilement démarrer, arrêter et réinitialiser l'ensemble de vos conteneurs d'un seul coup, au lieu de devoir gérer chaque conteneur individuellement.
+
+b. Quel moyen permet de configurer (premier utilisateur, première base de données, mot de passe root, …) facilement le conteneur mysql au lancement ?
+Utiliser un script de configuration, avec l'option '--init-file' de la commande 'docker run'
+
+Utiliser des variables d'environnements, définies dans le fichier 'docker-compose.yml'; pour configurer le conteneur MySQL au démarrage, on peut définir la variable MYSQL_ROOT_PASSWORD pour définir le mot de passe root de MySQL.
+
+Utiliser un fichier de configuration : créer un fichier de configuration MySQL (my.cnf) et le monter dans le conteneur en utilisant l'option -v de la commande docker run. Cela permet de configurer de nombreux paramètres MySQL au démarrage.
+
+9. Observation de l’isolation réseau entre 3 conteneurs
+
+a. A l’aide de docker-compose et de l’image praqma/network-multitool disponible sur le Docker Hub créer 3 services (web, app et db) et 2 réseaux (frontend et backend). Les services web et db ne devront pas pouvoir effectuer de ping de l’un vers l’autre
